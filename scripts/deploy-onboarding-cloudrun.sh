@@ -54,6 +54,7 @@ trap cleanup EXIT
 {
   echo "GOOGLE_OAUTH_CLIENT_ID: '$(yaml_quote "${GOOGLE_OAUTH_CLIENT_ID}")'"
   echo "GOOGLE_OAUTH_CLIENT_SECRET: '$(yaml_quote "${GOOGLE_OAUTH_CLIENT_SECRET}")'"
+  echo "ONBOARDING_PORT: '8080'"
   echo "ONBOARDING_BASE_URL: '$(yaml_quote "${ONBOARDING_BASE_URL}")'"
   echo "ONBOARDING_ALLOWED_EMAIL_DOMAINS: '$(yaml_quote "${ONBOARDING_ALLOWED_EMAIL_DOMAINS}")'"
   echo "ONBOARDING_BILLING_SETUP_URL: '$(yaml_quote "${ONBOARDING_BILLING_SETUP_URL}")'"
@@ -77,8 +78,7 @@ gcloud run deploy "${SERVICE_NAME}" \
   --region "${REGION}" \
   --source . \
   --allow-unauthenticated \
-  --command node \
-  --args onboarding/server.js \
+  --quiet \
   --env-vars-file "${TMP_ENV_FILE}"
 
 SERVICE_URL="$(gcloud run services describe "${SERVICE_NAME}" --project "${PROJECT_ID}" --region "${REGION}" --format='value(status.url)')"
@@ -89,6 +89,7 @@ if [[ "${ONBOARDING_BASE_URL}" == "https://placeholder.invalid" ]]; then
   gcloud run services update "${SERVICE_NAME}" \
     --project "${PROJECT_ID}" \
     --region "${REGION}" \
+    --quiet \
     --update-env-vars "ONBOARDING_BASE_URL=${SERVICE_URL}"
 fi
 
