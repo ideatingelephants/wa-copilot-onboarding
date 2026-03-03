@@ -1,0 +1,26 @@
+{
+  "name": "wa-group-ops-copilot",
+  "version": "0.1.0",
+  "description": "Friends-only WhatsApp group ops copilot (Baileys + Postgres)",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "db:init": "node src/init-db.js",
+    "start": "node src/app.js",
+    "onboarding:start": "node onboarding/server.js",
+    "check": "node --check src/app.js && node --check src/analysis.js && node --check src/llm.js && node --check src/commands.js && node --check src/messages.js && node --check src/store.js && node --check src/config.js && node --check src/notifier.js && node --check src/db.js && node --check src/init-db.js && node --check onboarding/server.js && node --check onboarding/gcp-provisioner.js && node --check onboarding/oauth.js && node --check onboarding/config.js && node --check onboarding/session-store.js && node --check onboarding/mailer.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "^6.7.18",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "google-auth-library": "^10.5.0",
+    "nodemailer": "^6.10.1",
+    "pg": "^8.16.3",
+    "pino": "^9.14.0"
+  }
+}

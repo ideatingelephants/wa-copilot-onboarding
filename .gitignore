@@ -1,0 +1,6 @@
+node_modules
+.env
+auth
+data/postgres
+*.log
+.remote_patch
